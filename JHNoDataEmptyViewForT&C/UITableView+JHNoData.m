@@ -57,6 +57,12 @@
         }
     }
     
+    // the class UITableViewWrapperView is disappear in lastest iOS (eg.iOS 11)
+    // but it exists in iOS 8.2 or older version.
+    if (!mmdView) {
+        mmdView = self;
+    }
+    
     // if self.visibleCells.count > 0, so tableView is not empty.
     if (self.visibleCells.count) {
         
