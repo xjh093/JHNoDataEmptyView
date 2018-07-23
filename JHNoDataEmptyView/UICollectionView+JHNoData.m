@@ -43,10 +43,22 @@
     method_exchangeImplementations(old, new);
 }
 
+- (void)setJh_showAutomatic:(BOOL)jh_showAutomatic{
+    objc_setAssociatedObject(self, @selector(jh_showAutomatic), @(jh_showAutomatic), OBJC_ASSOCIATION_ASSIGN);
+}
+
+- (BOOL)jh_showAutomatic{
+    return [objc_getAssociatedObject(self, _cmd) boolValue];
+}
+
 /// custom method
 - (void)jh_reloadData
 {
     [self jh_reloadData];
+    
+    if (![self jh_showAutomatic]) {
+        return;
+    }
     
     // issue: self.visibleCells.count == 0
     // https://stackoverflow.com/questions/26055626/uicollectionview-visiblecells-returns-0-before-scrolling
