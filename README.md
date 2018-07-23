@@ -1,7 +1,18 @@
 # JHNoDataEmptyViewForT-C
 empty view for tableview and collectionview
 
-### base on : visibleCells
+### Base on : visibleCells
+
+---
+
+### Logs:
+
+1.add property 'jh_showAutomatic'.(2018-07-23)
+
+ - default is 'YES'
+ - set 'NO' if you do not want to show the 'JHNoDataEmptyView'
+ 
+---
 
 ### implement delegate to offer more infomations
 ### delegate for UICollectionView
