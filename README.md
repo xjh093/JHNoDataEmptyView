@@ -7,11 +7,14 @@ empty view for tableview and collectionview
 
 ### Logs:
 
-1.add property 'jh_showAutomatic'.(2018-07-23)
+2.replace 'jh_showAutomatic' to 'jh_hideNoDataEmptyView'.(2018-7-24)
+- set 'YES' if you do not want to show the 'JHNoDataEmptyView'
+
+~1.add property 'jh_showAutomatic'.(2018-07-23)~
 
  - default is 'YES'
  - set 'NO' if you do not want to show the 'JHNoDataEmptyView'
- 
+
 ---
 
 ### implement delegate to offer more infomations
