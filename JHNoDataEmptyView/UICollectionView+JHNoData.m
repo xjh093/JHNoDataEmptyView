@@ -43,11 +43,11 @@
     method_exchangeImplementations(old, new);
 }
 
-- (void)setJh_showAutomatic:(BOOL)jh_showAutomatic{
-    objc_setAssociatedObject(self, @selector(jh_showAutomatic), @(jh_showAutomatic), OBJC_ASSOCIATION_ASSIGN);
+- (void)setJh_hideNoDataEmptyView:(BOOL)jh_hideNoDataEmptyView{
+    objc_setAssociatedObject(self, @selector(jh_hideNoDataEmptyView), @(jh_hideNoDataEmptyView), OBJC_ASSOCIATION_ASSIGN);
 }
 
-- (BOOL)jh_showAutomatic{
+- (BOOL)jh_hideNoDataEmptyView{
     return [objc_getAssociatedObject(self, _cmd) boolValue];
 }
 
@@ -56,7 +56,7 @@
 {
     [self jh_reloadData];
     
-    if (![self jh_showAutomatic]) {
+    if ([self jh_hideNoDataEmptyView]) {
         return;
     }
     
