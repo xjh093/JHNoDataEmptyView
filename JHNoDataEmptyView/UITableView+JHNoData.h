@@ -46,7 +46,6 @@
 
 @interface UITableView (JHNoData)
 
-/// Default is 'YES'.
-@property (nonatomic,  assign) BOOL  jh_showAutomatic;
+@property (nonatomic,  assign) BOOL  jh_hideNoDataEmptyView;
 
 @end
