@@ -10,7 +10,7 @@ empty view for tableview and collectionview
 3.add property 'jh_showNoDataEmptyView'.(2018-9-5)
 - suggest you to use this property, 'jh_hideNoDataEmptyView' is alse keeped. You can choose one of them.
 - automatic show effect too big, some system's collectionView is also effected.
-- pod 1.1.0 update failed. Please use Release 1.1.0.
+- pod 1.1.0 update failed. Please use Release 1.1.1.
 
 2.replace 'jh_showAutomatic' to 'jh_hideNoDataEmptyView'.(2018-7-24)
 - set 'YES' if you do not want to show the 'JHNoDataEmptyView'
