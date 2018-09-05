@@ -29,6 +29,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define kJHUITableViewNoDataPropertyChoose_Hide 1
+
 @protocol JHNoDataUITableViewDelegate <NSObject>
 
 @optional
@@ -46,6 +48,20 @@
 
 @interface UITableView (JHNoData)
 
+#if kJHUITableViewNoDataPropertyChoose_Hide
+
+/**
+ Show 'JHNoDataEmptyView' if dataSource of 'UITableView' is empty, it will effect all 'UITableView' that you use, it's effect is too big. Suggest you use the below property 'jh_showNoDataEmptyView', so you should set the 'kJHUITableViewNoDataPropertyChoose_Hide' to 1.
+ */
 @property (nonatomic,  assign) BOOL  jh_hideNoDataEmptyView;
+#else
+
+/**
+ 'NO' is default.
+ If you want to show 'JHNoDataEmptyView' in one of your 'UITableView', you should set 'YES'.
+ Suggest you use this property, so you should set the 'kJHUITableViewNoDataPropertyChoose_Hide' to 1.
+ */
+@property (nonatomic,  assign) BOOL  jh_showNoDataEmptyView;
+#endif
 
 @end

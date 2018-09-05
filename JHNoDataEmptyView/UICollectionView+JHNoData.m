@@ -43,6 +43,8 @@
     method_exchangeImplementations(old, new);
 }
 
+#if kJHUICollectionViewNoDataPropertyChoose_Hide
+
 - (void)setJh_hideNoDataEmptyView:(BOOL)jh_hideNoDataEmptyView{
     objc_setAssociatedObject(self, @selector(jh_hideNoDataEmptyView), @(jh_hideNoDataEmptyView), OBJC_ASSOCIATION_ASSIGN);
 }
@@ -51,14 +53,33 @@
     return [objc_getAssociatedObject(self, _cmd) boolValue];
 }
 
+#else
+
+- (void)setJh_showNoDataEmptyView:(BOOL)jh_showNoDataEmptyView{
+    objc_setAssociatedObject(self, @selector(jh_showNoDataEmptyView), @(jh_showNoDataEmptyView), OBJC_ASSOCIATION_ASSIGN);
+}
+
+- (BOOL)jh_showNoDataEmptyView{
+    return [objc_getAssociatedObject(self, _cmd) boolValue];
+}
+
+#endif
+
 /// custom method
 - (void)jh_reloadData
 {
     [self jh_reloadData];
     
+#if kJHUICollectionViewNoDataPropertyChoose_Hide
     if ([self jh_hideNoDataEmptyView]) {
         return;
     }
+#else
+    if (![self jh_showNoDataEmptyView]) {
+        return;
+    }
+#endif
+    
     
     // issue: self.visibleCells.count == 0
     // https://stackoverflow.com/questions/26055626/uicollectionview-visiblecells-returns-0-before-scrolling
