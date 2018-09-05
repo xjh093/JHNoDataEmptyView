@@ -43,7 +43,7 @@
     method_exchangeImplementations(old, new);
 }
 
-#if kJHUICollectionViewNoDataPropertyChoose_Hide
+#if kJHUICollectionViewNoDataPropertyChoose
 
 - (void)setJh_hideNoDataEmptyView:(BOOL)jh_hideNoDataEmptyView{
     objc_setAssociatedObject(self, @selector(jh_hideNoDataEmptyView), @(jh_hideNoDataEmptyView), OBJC_ASSOCIATION_ASSIGN);
@@ -70,7 +70,7 @@
 {
     [self jh_reloadData];
     
-#if kJHUICollectionViewNoDataPropertyChoose_Hide
+#if kJHUICollectionViewNoDataPropertyChoose
     if ([self jh_hideNoDataEmptyView]) {
         return;
     }
