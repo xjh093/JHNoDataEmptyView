@@ -42,7 +42,7 @@
     method_exchangeImplementations(old, new);
 }
 
-#if kJHUITableViewNoDataPropertyChoose_Hide
+#if kJHUITableViewNoDataPropertyChoose
 
 - (void)setJh_hideNoDataEmptyView:(BOOL)jh_hideNoDataEmptyView{
     objc_setAssociatedObject(self, @selector(jh_hideNoDataEmptyView), @(jh_hideNoDataEmptyView), OBJC_ASSOCIATION_ASSIGN);
@@ -69,7 +69,7 @@
 {
     [self jh_reloadData];
     
-#if kJHUITableViewNoDataPropertyChoose_Hide
+#if kJHUITableViewNoDataPropertyChoose
     if ([self jh_hideNoDataEmptyView]) {
         return;
     }
