@@ -42,18 +42,6 @@
     method_exchangeImplementations(old, new);
 }
 
-#if kJHUITableViewNoDataPropertyChoose
-
-- (void)setJh_hideNoDataEmptyView:(BOOL)jh_hideNoDataEmptyView{
-    objc_setAssociatedObject(self, @selector(jh_hideNoDataEmptyView), @(jh_hideNoDataEmptyView), OBJC_ASSOCIATION_ASSIGN);
-}
-
-- (BOOL)jh_hideNoDataEmptyView{
-    return [objc_getAssociatedObject(self, _cmd) boolValue];
-}
-
-#else
-
 - (void)setJh_showNoDataEmptyView:(BOOL)jh_showNoDataEmptyView{
     objc_setAssociatedObject(self, @selector(jh_showNoDataEmptyView), @(jh_showNoDataEmptyView), OBJC_ASSOCIATION_ASSIGN);
 }
@@ -62,24 +50,16 @@
     return [objc_getAssociatedObject(self, _cmd) boolValue];
 }
 
-#endif
-
 /// custom method
 - (void)jh_reloadData
 {
     [self jh_reloadData];
     
-#if kJHUITableViewNoDataPropertyChoose
-    if ([self jh_hideNoDataEmptyView]) {
-        return;
-    }
-#else
     if (![self jh_showNoDataEmptyView]) {
         return;
     }
-#endif
     
-    // find UITableViewWrapperView in self.subviews
+    // find UITableViewWrapperView in self.subviews before iOS 11
     UIView *mmdView = nil;
     Class class = NSClassFromString(@"UITableViewWrapperView");
     for (UIView *view in self.subviews) {
@@ -93,33 +73,63 @@
         mmdView = self;
     }
     
-    // if self.visibleCells.count > 0, so tableView is not empty.
-    if (self.visibleCells.count) {
-        
+    NSInteger totalRows = 0;
+    
+    // if self.visibleCells.count > 0, tableView may be not empty.
+    totalRows = self.visibleCells.count;
+    
+    // if self.visibleCells.count == 0, maybe tableHeaderView is too high!!!
+    if (totalRows == 0) {
+        for (NSInteger section = 0; section < self.numberOfSections; section++) {
+            NSInteger rows = [self numberOfRowsInSection:section];
+            totalRows += rows;
+        }
+    }
+    
+    if (totalRows > 0) {
         // remove custom views
         [mmdView.subviews enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof UIView * _Nonnull subview, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([subview isKindOfClass:[JHNoDataEmptyView class]]) {
                 [subview removeFromSuperview];
+                *stop = YES;
             }
         }];
         
     }else{
+
+        CGFloat tableHeaderViewHeight = 0;
+        CGFloat tableFooterViewHeight = 0;
+        if (self.tableHeaderView) {
+            tableHeaderViewHeight = CGRectGetHeight(self.tableHeaderView.frame);
+        }
+        if (self.tableFooterView) {
+            tableFooterViewHeight = CGRectGetHeight(self.tableFooterView.frame);
+        }
+        
+        CGFloat height = tableHeaderViewHeight + tableFooterViewHeight;
+        CGFloat tableViewHeight = CGRectGetHeight(self.frame);
+        // if headerView's height and footerView' height is bigger than tableView's Height
+        // there is not need to show the emptyview, because the tableview is full
+        if (height > tableViewHeight) {
+            return;
+        }
         
         // add custom views in UITableViewWrapperView to offer some infomation.
-        
         UILabel *label = nil;
         UIImageView *imageView = nil;
         
-        if ([self.delegate respondsToSelector:@selector(labelForTableViewWhenDataSourceIsEmpty)]) {
-            label = [self.delegate performSelector:@selector(labelForTableViewWhenDataSourceIsEmpty)];
+        if ([self.dataSource respondsToSelector:@selector(labelForTableViewWhenDataSourceIsEmpty)]) {
+            label = [self.dataSource performSelector:@selector(labelForTableViewWhenDataSourceIsEmpty)];
         }
         
-        if ([self.delegate respondsToSelector:@selector(imageViewForTableViewWhenDataSourceIsEmpty)]) {
-            imageView = [self.delegate performSelector:@selector(imageViewForTableViewWhenDataSourceIsEmpty)];
+        if ([self.dataSource respondsToSelector:@selector(imageViewForTableViewWhenDataSourceIsEmpty)]) {
+            imageView = [self.dataSource performSelector:@selector(imageViewForTableViewWhenDataSourceIsEmpty)];
         }
         
         // empty view
-        JHNoDataEmptyView *emptyView = [JHNoDataEmptyView jh_emptyViewWithLabel:label imageView:imageView bounds:mmdView.bounds backgroundColor:nil];
+        CGFloat offsetY = self.contentOffset.y < 0 ? self.contentOffset.y : 0;
+        CGRect bounds = CGRectMake(0, height, CGRectGetWidth(mmdView.frame), tableViewHeight - height + offsetY);
+        JHNoDataEmptyView *emptyView = [JHNoDataEmptyView jh_emptyViewWithLabel:label imageView:imageView bounds:bounds backgroundColor:nil];
         [mmdView addSubview:emptyView];
         
         if ([self.delegate respondsToSelector:@selector(emptyViewForTableViewWhenDataSourceIsEmpty:)]) {

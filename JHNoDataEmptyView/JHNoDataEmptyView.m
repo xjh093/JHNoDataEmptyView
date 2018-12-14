@@ -78,7 +78,7 @@
     JHNoDataEmptyView *emptyView = [[JHNoDataEmptyView alloc] init];
     emptyView.frame = bounds;
     
-    label.center = emptyView.center;
+    label.center = CGPointMake(CGRectGetWidth(emptyView.frame)*0.5, CGRectGetHeight(emptyView.frame)*0.5);
     [emptyView addSubview:label];
     
     return emptyView;
@@ -89,7 +89,7 @@
     JHNoDataEmptyView *emptyView = [[JHNoDataEmptyView alloc] init];
     emptyView.frame = bounds;
     
-    imageView.center = emptyView.center;
+    imageView.center = CGPointMake(CGRectGetWidth(emptyView.frame)*0.5, CGRectGetHeight(emptyView.frame)*0.5);
     [emptyView addSubview:imageView];
     
     return emptyView;

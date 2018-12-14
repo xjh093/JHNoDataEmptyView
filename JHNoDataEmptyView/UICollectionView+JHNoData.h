@@ -29,8 +29,6 @@
 
 #import <UIKit/UIKit.h>
 
-#define kJHUICollectionViewNoDataPropertyChoose 1
-
 @protocol JHNoDataUICollectionViewDelegate <NSObject>
 
 @optional
@@ -41,29 +39,17 @@
 /// offer a label to show some infomation for user.
 - (UILabel *)labelForCollectionViewWhenDataSourceIsEmpty;
 
-/// the empty view that add to tableView.
+/// the empty view that add to tableView. you can add more custom view.
 - (void)emptyViewForCollectionViewWhenDataSourceIsEmpty:(UIView *)emptyView;
 
 @end
 
 @interface UICollectionView (JHNoData)
 
-#if kJHUICollectionViewNoDataPropertyChoose
-
-/**
- Show 'JHNoDataEmptyView' if dataSource of 'UICollectionView' is empty, it will effect all 'UICollectionView' that you use and system's, it's effect is too big. 
- Suggest you use the below property 'jh_showNoDataEmptyView', so you should set the 'kJHUICollectionViewNoDataPropertyChoose' to 0.
- */
-@property (nonatomic,  assign) BOOL  jh_hideNoDataEmptyView;
-
-#else
-
 /**
  'NO' is default.
  If you want to show 'JHNoDataEmptyView' in one of your 'UICollectionView', you should set 'YES'.
- Suggest you use this property, so you should set the 'kJHUICollectionViewNoDataPropertyChoose' to 0.
  */
 @property (nonatomic,  assign) BOOL  jh_showNoDataEmptyView;
 
-#endif
 @end
