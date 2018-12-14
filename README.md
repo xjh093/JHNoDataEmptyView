@@ -1,14 +1,23 @@
-# JHNoDataEmptyViewForT-C
+# JHNoDataEmptyView
 empty view for tableview and collectionview
-
-### Base on : visibleCells
 
 ---
 
-### Pod
+# Base
+`visibleCells and total rows`
+
+---
+
+# Pod
 `pod 'JHNoDataEmptyView'`
 
-### Logs:
+---
+
+# Logs:
+
+4.add Demo and fix bugs.(2018-12-14)
+- header view or footer view is too high.
+- remove property 'jh_hideNoDataEmptyView'.
 
 3.add property 'jh_showNoDataEmptyView'.(2018-9-5)
 - suggest you to use this property, 'jh_hideNoDataEmptyView' is also keeped. You can choose one of them.
@@ -25,8 +34,8 @@ empty view for tableview and collectionview
 
 ---
 
-### implement delegate to offer more infomations
-### delegate for UICollectionView
+## implement delegate to offer more infomations
+## delegate for UICollectionView
 ```
 @protocol JHNoDataUICollectionViewDelegate <NSObject>
 
@@ -45,7 +54,7 @@ empty view for tableview and collectionview
 
 ```
 
-### delegate for UITableView
+## delegate for UITableView
 ```
 @protocol JHNoDataUITableViewDelegate <NSObject>
 
