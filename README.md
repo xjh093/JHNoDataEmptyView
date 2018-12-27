@@ -1,19 +1,21 @@
 # JHNoDataEmptyView
 empty view for tableview and collectionview
+- tableview 与 collectionview 的空白占位图
 
 ---
 
-# Base
-`visibleCells and total rows`
+# Version
+Latest release version:
+- [1.2.0](https://github.com/xjh093/JHNoDataEmptyView/releases)
 
 ---
 
-# Pod
+# Cocoapods
 `pod 'JHNoDataEmptyView'`
 
 ---
 
-# Logs:
+# Logs
 
 4.add Demo and fix bugs.(2018-12-14)
 - header view or footer view is too high.
