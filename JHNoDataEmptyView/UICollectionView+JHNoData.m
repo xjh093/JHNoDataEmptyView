@@ -82,20 +82,20 @@
         UILabel *label = nil;
         UIImageView *imageView = nil;
         
-        if ([self.delegate respondsToSelector:@selector(labelForCollectionViewWhenDataSourceIsEmpty)]) {
-            label = [self.delegate performSelector:@selector(labelForCollectionViewWhenDataSourceIsEmpty)];
+        if ([self.dataSource respondsToSelector:@selector(labelForCollectionViewWhenDataSourceIsEmpty)]) {
+            label = [self.dataSource performSelector:@selector(labelForCollectionViewWhenDataSourceIsEmpty)];
         }
         
-        if ([self.delegate respondsToSelector:@selector(imageViewForCollectionViewWhenDataSourceIsEmpty)]) {
-            imageView = [self.delegate performSelector:@selector(imageViewForCollectionViewWhenDataSourceIsEmpty)];
+        if ([self.dataSource respondsToSelector:@selector(imageViewForCollectionViewWhenDataSourceIsEmpty)]) {
+            imageView = [self.dataSource performSelector:@selector(imageViewForCollectionViewWhenDataSourceIsEmpty)];
         }
         
         // empty view
         JHNoDataEmptyView *emptyView = [JHNoDataEmptyView jh_emptyViewWithLabel:label imageView:imageView bounds:self.bounds backgroundColor:nil];
         [self addSubview:emptyView];
         
-        if ([self.delegate respondsToSelector:@selector(emptyViewForCollectionViewWhenDataSourceIsEmpty:)]) {
-            [self.delegate performSelector:@selector(emptyViewForCollectionViewWhenDataSourceIsEmpty:) withObject:emptyView];
+        if ([self.dataSource respondsToSelector:@selector(emptyViewForCollectionViewWhenDataSourceIsEmpty:)]) {
+            [self.dataSource performSelector:@selector(emptyViewForCollectionViewWhenDataSourceIsEmpty:) withObject:emptyView];
         }
     }
 }
