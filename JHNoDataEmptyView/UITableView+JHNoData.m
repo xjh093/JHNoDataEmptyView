@@ -132,8 +132,8 @@
         JHNoDataEmptyView *emptyView = [JHNoDataEmptyView jh_emptyViewWithLabel:label imageView:imageView bounds:bounds backgroundColor:nil];
         [mmdView addSubview:emptyView];
         
-        if ([self.delegate respondsToSelector:@selector(emptyViewForTableViewWhenDataSourceIsEmpty:)]) {
-            [self.delegate performSelector:@selector(emptyViewForTableViewWhenDataSourceIsEmpty:) withObject:emptyView];
+        if ([self.dataSource respondsToSelector:@selector(emptyViewForTableViewWhenDataSourceIsEmpty:)]) {
+            [self.dataSource performSelector:@selector(emptyViewForTableViewWhenDataSourceIsEmpty:) withObject:emptyView];
         }
     }
 }
