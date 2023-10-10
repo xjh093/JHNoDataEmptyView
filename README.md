@@ -16,6 +16,9 @@ Latest release version:
 ---
 
 # Logs
+### 2023-10-10
+- fix bugs.(Download the master, pod is out of date.)
+
 ### 2018-12-14
 - add Demo and fix bugs.
     - header view or footer view is too high.
