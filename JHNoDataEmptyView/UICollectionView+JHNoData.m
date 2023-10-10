@@ -84,18 +84,27 @@
         
         if ([self.dataSource respondsToSelector:@selector(labelForCollectionViewWhenDataSourceIsEmpty)]) {
             label = [self.dataSource performSelector:@selector(labelForCollectionViewWhenDataSourceIsEmpty)];
+        } else if ([self respondsToSelector:@selector(labelForCollectionViewWhenDataSourceIsEmpty)]) {
+            label = [self performSelector:@selector(labelForCollectionViewWhenDataSourceIsEmpty)];
         }
         
         if ([self.dataSource respondsToSelector:@selector(imageViewForCollectionViewWhenDataSourceIsEmpty)]) {
             imageView = [self.dataSource performSelector:@selector(imageViewForCollectionViewWhenDataSourceIsEmpty)];
+        } else if ([self respondsToSelector:@selector(imageViewForCollectionViewWhenDataSourceIsEmpty)]) {
+            imageView = [self performSelector:@selector(imageViewForCollectionViewWhenDataSourceIsEmpty)];
         }
         
         // empty view
+        [[self viewWithTag:20231009] removeFromSuperview];
+        
         JHNoDataEmptyView *emptyView = [JHNoDataEmptyView jh_emptyViewWithLabel:label imageView:imageView bounds:self.bounds backgroundColor:nil];
+        emptyView.tag = 20231009;
         [self addSubview:emptyView];
         
         if ([self.dataSource respondsToSelector:@selector(emptyViewForCollectionViewWhenDataSourceIsEmpty:)]) {
             [self.dataSource performSelector:@selector(emptyViewForCollectionViewWhenDataSourceIsEmpty:) withObject:emptyView];
+        } else if ([self respondsToSelector:@selector(emptyViewForCollectionViewWhenDataSourceIsEmpty:)]) {
+            [self performSelector:@selector(emptyViewForCollectionViewWhenDataSourceIsEmpty:) withObject:emptyView];
         }
     }
 }
