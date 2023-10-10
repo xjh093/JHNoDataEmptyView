@@ -66,9 +66,10 @@
     
     [emptyView addSubview:imageView];
     [emptyView addSubview:label];
-    
-    imageView.center = CGPointMake(emptyView.center.x, emptyView.center.y - imageView.bounds.size.height * 0.5 - 5);
-    label.center = CGPointMake(emptyView.center.x, emptyView.center.y + label.bounds.size.height * 0.5 + 5);
+
+    CGFloat centerY = CGRectGetHeight(emptyView.frame) * 0.5;
+    imageView.center = CGPointMake(emptyView.center.x, centerY - imageView.bounds.size.height * 0.5 - 5);
+    label.center = CGPointMake(emptyView.center.x, centerY + label.bounds.size.height * 0.5 + 5);
     
     return emptyView;
 }
