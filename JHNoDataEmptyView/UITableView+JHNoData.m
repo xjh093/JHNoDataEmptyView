@@ -120,20 +120,29 @@
         
         if ([self.dataSource respondsToSelector:@selector(labelForTableViewWhenDataSourceIsEmpty)]) {
             label = [self.dataSource performSelector:@selector(labelForTableViewWhenDataSourceIsEmpty)];
+        } else if ([self respondsToSelector:@selector(labelForTableViewWhenDataSourceIsEmpty)]) {
+            label = [self performSelector:@selector(labelForTableViewWhenDataSourceIsEmpty)];
         }
         
         if ([self.dataSource respondsToSelector:@selector(imageViewForTableViewWhenDataSourceIsEmpty)]) {
             imageView = [self.dataSource performSelector:@selector(imageViewForTableViewWhenDataSourceIsEmpty)];
+        } else if ([self respondsToSelector:@selector(imageViewForTableViewWhenDataSourceIsEmpty)]) {
+            imageView = [self performSelector:@selector(imageViewForTableViewWhenDataSourceIsEmpty)];
         }
         
         // empty view
+        [[mmdView viewWithTag:20231009] removeFromSuperview];
+        
         CGFloat offsetY = self.contentOffset.y < 0 ? self.contentOffset.y : 0;
         CGRect bounds = CGRectMake(0, height, CGRectGetWidth(mmdView.frame), tableViewHeight - height + offsetY);
         JHNoDataEmptyView *emptyView = [JHNoDataEmptyView jh_emptyViewWithLabel:label imageView:imageView bounds:bounds backgroundColor:nil];
+        emptyView.tag = 20231009;
         [mmdView addSubview:emptyView];
         
         if ([self.dataSource respondsToSelector:@selector(emptyViewForTableViewWhenDataSourceIsEmpty:)]) {
             [self.dataSource performSelector:@selector(emptyViewForTableViewWhenDataSourceIsEmpty:) withObject:emptyView];
+        } else if ([self respondsToSelector:@selector(emptyViewForTableViewWhenDataSourceIsEmpty:)]) {
+            [self performSelector:@selector(emptyViewForTableViewWhenDataSourceIsEmpty:) withObject:emptyView];
         }
     }
 }
