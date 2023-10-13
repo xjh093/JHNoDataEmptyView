@@ -97,7 +97,7 @@
         // empty view
         [[self viewWithTag:20231009] removeFromSuperview];
         
-        JHNoDataEmptyView *emptyView = [JHNoDataEmptyView jh_emptyViewWithLabel:label imageView:imageView bounds:self.bounds backgroundColor:nil];
+        JHNoDataEmptyView *emptyView = [JHNoDataEmptyView jh_emptyViewWithLabel:label imageView:imageView bounds:CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)) backgroundColor:nil];
         emptyView.tag = 20231009;
         [self addSubview:emptyView];
         
